@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState, useRef } from 'react'
 
 // 간단한 회원가입 폼
 const Register = () => {
@@ -30,7 +30,17 @@ const Register = () => {
         bio: ""
     })
 
+    const countRef = useRef(0)
+    // let count를 쓸 수 없는 이유는, 리랜더링 되면서 계속 count 변수가 초기화되어
+    // count값은 계속 0으로 리셋이 되기때문에 상태 값 저장은 useRef를 사용해야함
+    // useRef는 값이 바뀌어도 랜더링에 영향은 주지않음. 단, 랜더링이 새로되었을 때 값이 그대로 잘 유지됨
+
+    const inputRef = useRef()
+    // input태그같은 태그를 useRef을 사용해서 가리킬수있음
+
     const onChange = (e) => {
+        countRef.current++
+        console.log(countRef.current)
         setInput({
             ...input,
             [e.target.name]: e.target.value,
@@ -66,10 +76,18 @@ const Register = () => {
         })
     }
 
+    const onSubmit = () => {
+        if(input.name === ""){
+            // 이름을 입력하는 DOM 요소 포커스
+            inputRef.current.focus()
+        }
+    }
+
     return(
         <div>
             <div>
                 <input 
+                    ref={inputRef}
                     name="name"
                     value={input.name}
                     placeholder={"이름"} 
@@ -110,6 +128,9 @@ const Register = () => {
                 />
                 {input.bio}
             </div>
+            <button onClick={onSubmit}>
+                제출
+            </button>
         </div>
     )
 }
