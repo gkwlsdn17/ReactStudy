@@ -1,27 +1,21 @@
 import './App.css'
-import Header from "./components/Header"
-import Main from "./components/Main"
-import Footer from "./components/Footer"
-import Button from "./components/Button"
-function App() {
+import Bulb from './components/Bulb'
+import Counter from './components/Counter'
 
-  const buttonProps = {
-    text: "메일",
-    color: "red",
-    a: 1,
-    b: 2,
-    c: 3
-  }
+
+function App() {
+  // const state = useState(0)
+  // console.log(state)
+  // state는 배열의 값을 가지고 있어서 보통 배열로 씀
+  
+  // Bulb와 Counter처럼 나누는 이유는
+  // useState가 서로 상관없는것이 같이 있으면 쓸데없이 다른것도 같이 랜더링되기때문
+
   return (
     <>
-      <Header/>
-      <Main/>
-      <Button {...buttonProps}/>
-      <Button text={"카페"} color={"blue"}/>
-      <Button text={"블로그"}>
-        <Header/>
-      </Button>
-      <Footer/>
+    <Bulb/>
+    <Counter/>
+      
     </>
   )
 }
