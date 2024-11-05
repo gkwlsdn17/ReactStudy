@@ -1,7 +1,6 @@
 import './App.css'
-import Bulb from './components/Bulb'
-import Counter from './components/Counter'
 
+import Register from './components/Register'
 
 function App() {
   // const state = useState(0)
@@ -13,9 +12,9 @@ function App() {
 
   return (
     <>
-    <Bulb/>
-    <Counter/>
-      
+    {/* <Bulb/>
+    <Counter/> */}
+      <Register/>
     </>
   )
 }
