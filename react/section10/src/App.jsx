@@ -65,7 +65,7 @@ function App() {
     }, [])
 
   // deps를 주지 않으면 mount될때만 실행
-  const onDelete = useCallback(()=>{
+  const onDelete = useCallback((targetId)=>{
     dispatch({
       type: "DELETE",
       targetId: targetId
