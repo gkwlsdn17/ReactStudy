@@ -3,7 +3,7 @@ import './App.css'
 import Header from "./components/Header"
 import Editor from "./components/Editor"
 import List from "./components/List"
-import { useState, useRef, useReducer } from 'react'
+import { useState, useRef, useReducer, useCallback } from 'react'
 import Exam from './components/Exam'
 
 const mockData = [
@@ -42,7 +42,7 @@ function App() {
   const [todos, dispatch] = useReducer(reducer, mockData)
   const idRef = useRef(3)
 
-  const onCreate = (content) => {
+  const onCreate = useCallback((content) => {
     dispatch(
       {
         type: "CREATE",
@@ -54,21 +54,23 @@ function App() {
         }
       }
     )
-  }
+  }, [])
 
-  const onUpdate = (targetId) => {
-    dispatch({
-      type: "UPDATE",
-      targetId: targetId
-    })
-  }
+  // deps를 주지 않으면 mount될때만 실행
+    const onUpdate = useCallback((targetId) => {
+      dispatch({
+        type: "UPDATE",
+        targetId: targetId
+      })
+    }, [])
 
-  const onDelete = (targetId) => {
+  // deps를 주지 않으면 mount될때만 실행
+  const onDelete = useCallback(()=>{
     dispatch({
       type: "DELETE",
       targetId: targetId
     })
-  }
+  }, [])
 
   return (
     <div className='App'>
