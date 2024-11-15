@@ -3,7 +3,7 @@ import './App.css'
 import Header from "./components/Header"
 import Editor from "./components/Editor"
 import List from "./components/List"
-import { useState, useRef, useReducer, useCallback, createContext } from 'react'
+import { useState, useRef, useReducer, useCallback, createContext, useMemo } from 'react'
 import Exam from './components/Exam'
 
 const mockData = [
@@ -38,8 +38,11 @@ function reducer(state, action){
 }
 
 // context는 app 밖에 선언
-export const TodoContext = createContext()
+// export const TodoContext = createContext()
 // console.log(TodoContext)
+
+export const TodoStateContext = createContext()
+export const TodoDispatchContext = createContext()
 
 function App() {
   
@@ -76,19 +79,19 @@ function App() {
     })
   }, [])
 
+  // 다시 생성하지 않도록 useMemo로 설정
+  const memoizedDispath = useMemo(()=>{return {onCreate, onUpdate, onDelete}}, [])
+
   return (
     <div className='App'>
       <Header/>
       {/* Provider에 전달할 요소 value에 넣음 */}
-      <TodoContext.Provider value={{
-        todos,
-        onCreate,
-        onUpdate,
-        onDelete
-      }}>
-        <Editor/>
-        <List/>
-      </TodoContext.Provider>
+      <TodoStateContext.Provider value={todos}>
+        <TodoDispatchContext.Provider value={memoizedDispath}>
+          <Editor/>
+          <List/>
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
       
       {/* <Exam/> */}
     </div>
