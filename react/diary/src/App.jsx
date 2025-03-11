@@ -6,9 +6,6 @@ import New from './pages/New'
 import Edit from './pages/Edit'
 import { Route, Routes, Link, useNavigate } from 'react-router-dom'
 import Notfound from './pages/Notfound'
-// import { getEmotionImage } from './util/get-emotion-images'
-import Button from './components/Button'
-import Header from './components/Header'
 
 function reducer(state, action){
   let nextState;
